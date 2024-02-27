@@ -18,11 +18,7 @@ After going through the above papers and researching further, I found the follow
 
 After going through the datasets, I decided to work with the ACDC dataset as it had more images. But the DAWN dataset can later be used to test the performance of the trained model.
 
-ACDC dataset has train, validation and test sets predefined. Here are a few images 
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/94e34583-542e-4863-9bdb-d02b6266d819/d6f86f30-9e87-4655-9711-8b5e305f62ce/Untitled.png)
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/94e34583-542e-4863-9bdb-d02b6266d819/06862cf5-4003-4bb0-9ae8-738a23e5302d/Untitled.png)
+ACDC dataset has train, validation and test sets predefined
 
 It has the following labels and ids
 
