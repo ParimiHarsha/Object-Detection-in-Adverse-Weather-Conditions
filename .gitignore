@@ -1,0 +1,6 @@
+data/
+gt_detection_trainval/
+gt_labels/
+rgb_anon_trainvaltest/
+
+.DS_Store
