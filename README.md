@@ -2,12 +2,44 @@
 
 The goal of this project is to create an object detection model that is robust to adverse weather conditions (e.g. rain, fog, night). 
 
-## Choice of Data
+## Literature Review
 
 Initially, I started by searching if there is any work that has already been done on this. And I came across a couple of research papers related to this:
 
 - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10611033/#B67-sensors-23-08471
 - https://openaccess.thecvf.com/content/ICCV2021/papers/Sakaridis_ACDC_The_Adverse_Conditions_Dataset_With_Correspondences_for_Semantic_Driving_ICCV_2021_paper.pdf
+
+Mitigating domain discrepancies from normal weather to adverse climate in vision neural networks involves several strategies aimed at improving the model's robustness and generalization across different weather conditions. 
+
+- Here are some approaches to mitigate domain discrepancies:
+    1. **Data Augmentation**:
+        - Augmenting the dataset with diverse samples from both normal and adverse weather conditions helps expose the model to a wider range of scenarios.
+        - Techniques such as adding simulated fog, rain, snow, and haze to images can help the model learn to recognize objects under adverse weather conditions.
+    2. **Transfer Learning**:
+        - Transfer learning involves using a pre-trained model trained on a source domain (e.g., normal weather conditions) and fine-tuning it on the target domain (e.g., adverse weather conditions).
+        - By leveraging features learned from the source domain, the model can adapt more quickly to the target domain while mitigating domain discrepancies.
+    3. **Domain Adaptation**:
+        - Domain adaptation techniques aim to align feature distributions between different domains (e.g., normal weather and adverse climate) to reduce domain discrepancies.
+        - Adversarial training, where a domain discriminator is trained to distinguish between source and target domain features, can help align the feature distributions.
+        - Domain-specific regularization techniques can also be employed to encourage the model to learn domain-invariant features.
+    4. **Data Preprocessing**:
+        - Preprocessing techniques such as contrast enhancement, de-noising, and haze removal can improve the quality of input images and reduce the impact of adverse weather conditions on the model's performance.
+        - Data preprocessing methods specifically tailored to handle adverse weather conditions can help mitigate domain discrepancies and improve the model's robustness.
+    5. **Domain Randomization**:
+        - During training, expose the model to a wide variety of weather conditions, including both normal and adverse climates.
+        - Randomizing weather conditions during training helps the model learn to generalize across different domains and reduces overfitting to specific conditions.
+    6. **Robust Model Architecture**:
+        - Utilize robust neural network architectures that are capable of capturing and representing features across different weather conditions.
+        - Architectures such as convolutional neural networks (CNNs) with skip connections, feature pyramids, and attention mechanisms can help improve the model's ability to handle variations in weather conditions.
+
+I have chosen to implement the transfer learning approach which was the most viable because:
+
+1. **Utilization of Pre-trained Models:** It utilizes pre-trained models that hvae been trained on large-scale datasets in normal weather conditions. These pre-trained models have already learned generic features and patterns that are transferable across different domains.
+2. **Faster Training and Convergence:** By starting with a pre-trained model, transfer learning reduces the training time and computational resources required to adapt the model to the target domain. The model initializes with weights that are already optimized for extracting relevant features, which can accelerate the convergence of training on the new dataset.
+
+It also has other advantages like Reduced Risk of Overfitting and Effective Feature Extraction.
+
+## Choice of Data
 
 After going through the above papers and researching further, I found the following datasets suitable for our analysis:
 
@@ -18,7 +50,7 @@ After going through the above papers and researching further, I found the follow
 
 After going through the datasets, I decided to work with the ACDC dataset as it had more images. But the DAWN dataset can later be used to test the performance of the trained model.
 
-ACDC dataset has train, validation and test sets predefined
+ACDC dataset has train, validation and test sets predefined.
 
 It has the following labels and ids
 
@@ -34,6 +66,8 @@ class_names = {
     33: 'bicycle',
 }
 ```
+
+Class distribution in the train data
 
 As the data is mostly contained of car labels, I have decided to only detect cars for this assignment, this also helps in training the model faster and is more accurate. 
 
@@ -86,26 +120,28 @@ The data preprocessing involves 2 main steps:
 1. Populating the training images in `data/images` directory from all the weather condition files.
 2. Creating the labels for the images in the YOLOv8 format and populating the `data/labels` directory.
 
-While creating the labels for the images we need to change the label ids, e.g cars are labelled as ‘26’ in the raw data but we relabelled it as ‘0’ for our model. We can keep adding new label ids as we require for detection.
+While creating the labels for the images we need to change the label ids, e.g cars are labelled as ‘26’ in the raw data but we relabelled it as ‘0’ for our model. We can keep adding new label ids as we require. 
 
 ## Model Training
 
-For this exercise I have decided to use the small size model `yolov8n.yaml` as we are dealing with a fairly small dataset. 
+For this exercise I have decided to use the small size model `yolov8n.yaml` (3.2M params) as we are dealing with a fairly small dataset. 
 
 Initially tried training the above model from scratch, but it was taking too long to train. The results could have been better if I trained it for longer time.
 
 Then, started to work with pre-trained weights use transfer learning to make it dataset specific. This model gave good results while training for a reasonable amount of time.
 
-After training the model on test data I have tried to test the model’s perfomance in real time by using a video of a car driving in snow.
+## Testing the Model
 
+I have then used the trained model to predict on the test data. Here are a few predicted images
 
+After getting satisfactory results on the test data, I have tried to test the model’s performance in real time by using a video of a car driving in snow. (DEMO).
+
+## Challenges
+
+- Understanding the dataset: It took me time to go through the dataset structure(images and labels) and convert it into the way yolo format.
+- Model Training Times: I initially spent a lot of time trying to train the model from scratch, thinking that it would be better. But then I realized that we need to utilize the feature extractors of the pre-trained model and fine tune it on our dataset
 
 ## References
-
-https://kikaben.com/yolov5-transfer-learning-dogs-cats/
-
-https://acdc.vision.ee.ethz.ch/download
-
 https://openaccess.thecvf.com/content/ICCV2021/papers/Sakaridis_ACDC_The_Adverse_Conditions_Dataset_With_Correspondences_for_Semantic_Driving_ICCV_2021_paper.pdf
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10611033/#B67-sensors-23-08471
