@@ -3,7 +3,7 @@ import numpy as np
 from ultralytics import YOLO
 
 best_model = YOLO(
-    "/Users/parimi/Documents/TAMU/RA_Work/runs/detect/train11/weights/last.pt"
+    "/Users/parimi/Documents/TAMU/RA_Work/runs/detect/train2/weights/best.pt"
 )
 cap = cv2.VideoCapture("/Users/parimi/Documents/TAMU/RA_Work/snow_driving.mp4")
 while True:

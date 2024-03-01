@@ -18,11 +18,7 @@ After going through the above papers and researching further, I found the follow
 
 After going through the datasets, I decided to work with the ACDC dataset as it had more images. But the DAWN dataset can later be used to test the performance of the trained model.
 
-ACDC dataset has train, validation and test sets predefined. Here are a few images 
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/94e34583-542e-4863-9bdb-d02b6266d819/d6f86f30-9e87-4655-9711-8b5e305f62ce/Untitled.png)
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/94e34583-542e-4863-9bdb-d02b6266d819/06862cf5-4003-4bb0-9ae8-738a23e5302d/Untitled.png)
+ACDC dataset has train, validation and test sets predefined
 
 It has the following labels and ids
 
@@ -38,10 +34,6 @@ class_names = {
     33: 'bicycle',
 }
 ```
-
-![Class distribution in the train data](https://prod-files-secure.s3.us-west-2.amazonaws.com/94e34583-542e-4863-9bdb-d02b6266d819/d20a61ce-28c9-44a4-8767-598654318002/Untitled.png)
-
-Class distribution in the train data
 
 As the data is mostly contained of car labels, I have decided to only detect cars for this assignment, this also helps in training the model faster and is more accurate. 
 
@@ -104,21 +96,12 @@ Initially tried training the above model from scratch, but it was taking too lon
 
 Then, started to work with pre-trained weights use transfer learning to make it dataset specific. This model gave good results while training for a reasonable amount of time.
 
-Here are the validation predictions
-
-![Actual validation labels](https://prod-files-secure.s3.us-west-2.amazonaws.com/94e34583-542e-4863-9bdb-d02b6266d819/2d07e531-7f96-4fe1-b91d-3f64c05ee19f/Untitled.jpeg)
-
-Actual validation labels
-
-![Validation predictions](https://prod-files-secure.s3.us-west-2.amazonaws.com/94e34583-542e-4863-9bdb-d02b6266d819/d2de6a9d-cfee-402b-b8e3-ef84503b0a26/Untitled.jpeg)
-
-Validation predictions
-
 After training the model on test data I have tried to test the model’s perfomance in real time by using a video of a car driving in snow.
 
-Talk about the evaluation metrics map50
 
-references
+
+## References
+
 https://kikaben.com/yolov5-transfer-learning-dogs-cats/
 
 https://acdc.vision.ee.ethz.ch/download
